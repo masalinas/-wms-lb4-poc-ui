@@ -1,0 +1,52 @@
+<kendo-grid #gridPallet
+          [columnMenu]="true"
+          [selectable]="{checkboxOnly: false, mode: 'single'}"
+          [resizable]="true"
+          [loading]="loading"
+          [data]="palletData"
+          [pageSize]="state.take"
+          [skip]="state.skip"
+          [sort]="state.sort"
+          [filter]="state.filter"
+          [sortable]="true"
+          [pageable]="true"
+          [filterable]="true"
+          [groupable]="true"
+          [group]="state.group"
+          (dataStateChange)="dataStateChange($event)">
+    <!-- Grid Toolbox -->
+    <ng-template kendoGridToolbarTemplate>
+      <button kendoButton [primary]="true" [look]="'outline'" (click)="onPalletRefreshClick($event)">Actualizar</button>
+      <button kendoGridExcelCommand icon="file-excel" style="float: right;">Export Excel</button>
+      <button kendoGridPDFCommand icon="file-pdf" style="float: right;">Export PDF</button>
+    </ng-template>
+
+    <!-- Grid Column Menu -->
+    <ng-template kendoGridColumnMenuTemplate let-service="service">
+      <kendo-grid-columnmenu-chooser [service]="service">
+      </kendo-grid-columnmenu-chooser>
+    </ng-template>
+
+    <!-- Grid Columns -->
+    <kendo-grid-column field="id" title="Id" width="50" hidden="true">
+    </kendo-grid-column>
+    <kendo-grid-column field="SSCC" width="45" title="SSCC">
+    </kendo-grid-column>
+
+    <!-- Grid Export Tools-->
+    <kendo-grid-excel fileName="Pallets.xlsx"></kendo-grid-excel>
+    <kendo-grid-pdf fileName="Pallets.pdf" [allPages]="true" paperSize="A4" [repeatHeaders]="true" [landscape]="true">
+      <kendo-grid-pdf-margin top="2cm" left="1cm" right="1cm" bottom="2cm"></kendo-grid-pdf-margin>
+      <ng-template kendoGridPDFTemplate let-pageNum="pageNum" let-totalPages="totalPages">
+        <div class="page-template">
+          <div class="header">
+            <div style="float: right">Page {{ pageNum }} of {{ totalPages }}</div>
+            Multi-page grid with automatic page breaking
+          </div>
+          <div class="footer">
+            Page {{ pageNum }} of {{ totalPages }}
+          </div>
+        </div>
+      </ng-template>
+    </kendo-grid-pdf>
+</kendo-grid>
