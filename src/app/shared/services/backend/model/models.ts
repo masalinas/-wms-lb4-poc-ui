@@ -19,7 +19,6 @@ export * from './palletTypePartial';
 export * from './palletTypeWithRelations';
 export * from './palletWithRelations';
 export * from './pingResponse';
-export * from './pingResponseHeaders';
 export * from './product';
 export * from './productFields';
 export * from './productFilter';

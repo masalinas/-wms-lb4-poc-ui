@@ -17,19 +17,10 @@ import { StockProductControllerService } from './api/stockProductController.serv
   imports:      [],
   declarations: [],
   exports:      [],
-  providers: [
-    PalletControllerService,
-    PalletPalletTypeControllerService,
-    PalletStockControllerService,
-    PalletTypeControllerService,
-    PingControllerService,
-    ProductControllerService,
-    StockControllerService,
-    StockPalletControllerService,
-    StockProductControllerService ]
+  providers: []
 })
 export class ApiModule {
-    public static forRoot(configurationFactory: () => Configuration): ModuleWithProviders {
+    public static forRoot(configurationFactory: () => Configuration): ModuleWithProviders<ApiModule> {
         return {
             ngModule: ApiModule,
             providers: [ { provide: Configuration, useFactory: configurationFactory } ]
