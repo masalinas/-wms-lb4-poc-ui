@@ -4,8 +4,8 @@ import { GroupDescriptor, SortDescriptor, process, State } from '@progress/kendo
 import { GridComponent, GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
 import { DialogService, DialogCloseResult } from '@progress/kendo-angular-dialog';
 
-import { PalletControllerService } from './shared/services/backend/api/api';
 import { Pallet } from './shared/services/backend/model/models';
+import { PalletControllerService } from './shared/services/backend/api/api';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   public palletData: GridDataResult;
   public pallets: Pallet[];
 
-  // grid parameters
+  // initialize grid state
   public state: State = {
     group: Array<GroupDescriptor>(),
     sort: Array<SortDescriptor>(),
@@ -31,10 +31,13 @@ export class AppComponent implements OnInit {
   private getPallets() {
     this.loading = true;
 
-    this.palletControllerService.palletControllerFind().subscribe((pallets: any) => {
+    let filter: any = {"include": [{"relation": "palletType"}]};
+
+    this.palletControllerService.palletControllerFind(filter).subscribe((pallets: any) => {
        this.pallets = pallets;
 
        this.loadGrid();
+
        this.loading = false;
       },
       err => {
