@@ -1,0 +1,41 @@
+<form novalidate [formGroup]="palletFormGroup" class="k-form" (keyup.enter)="onSave($event)" (keyup.esc)="onCancel($event)">
+  <div class="form-group-wrapper">
+    <!-- sscc -->
+    <div id="form-group-sscc" class="form-group">
+      <label for="sscc" class="control-label">
+        SSCC <span class="k-required">*</span>
+      </label>
+
+      <input id="sscc" autofocus required kendoTextBox formControlName="sscc" style="width: 350px;"/>
+
+      <div class="k-tooltip k-tooltip-validation"
+       *ngIf="palletFormGroup.controls.sscc.invalid &&
+             (palletFormGroup.controls.sscc.dirty || palletFormGroup.controls.sscc.touched)">
+        SSCC is required
+      </div>
+    </div>
+    <!-- type -->
+    <div id="form-group-palletType" class="form-group">
+      <label for="palletType" class="control-label">
+        Type <span class="k-required">*</span>
+      </label>
+
+      <kendo-dropdownlist id="palletType" required formControlName="palletTypeId" style="width: 200px;" valuePrimitive=true
+        [data]="palletTypes"
+        [textField]="'name'"
+        [valueField]="'id'">
+      </kendo-dropdownlist>
+
+      <div class="k-tooltip k-tooltip-validation"
+        *ngIf="palletFormGroup.controls.palletTypeId.invalid &&
+              (palletFormGroup.controls.palletTypeId.dirty || palletFormGroup.controls.palletTypeId.touched)">
+        Type is required
+      </div>
+    </div>
+  </div>
+</form>
+
+<div class="text-right">
+  <button kendoButton [look]="'outline'" (click)="onCancel($event)">Cancel</button>
+  <button kendoButton [primary]="true" (click)="onSave($event)" [disabled]="!palletFormGroup.valid">Save</button>
+</div>

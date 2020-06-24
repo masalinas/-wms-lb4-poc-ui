@@ -13,10 +13,12 @@
           [filterable]="true"
           [groupable]="true"
           [group]="state.group"
-          (dataStateChange)="dataStateChange($event)">
+          (dataStateChange)="dataStateChange($event)"
+          (add)="addPalletHandler($event)">
     <!-- Grid Toolbox -->
     <ng-template kendoGridToolbarTemplate>
       <button kendoButton [primary]="true" [look]="'outline'" (click)="onPalletRefreshClick($event)">Actualizar</button>
+      <button kendoGridAddCommand [primary]="true">Add Brand</button>
       <button kendoGridExcelCommand icon="file-excel" style="float: right;">Export Excel</button>
       <button kendoGridPDFCommand icon="file-pdf" style="float: right;">Export PDF</button>
     </ng-template>
@@ -35,6 +37,15 @@
     <kendo-grid-column field="palletType.name" width="45" title="Type">
     </kendo-grid-column>
 
+    <!-- Actions Menu -->
+    <kendo-grid-command-column width="40" title="Actions">
+      <ng-template kendoGridCellTemplate let-dataItem>
+          <kendo-splitbutton [data]="menuData" [look]="'outline'" (itemClick)="onMenuClick($event, dataItem)">
+            Actions Menu
+          </kendo-splitbutton>
+      </ng-template>
+    </kendo-grid-command-column>
+
     <!-- Grid Export Tools-->
     <kendo-grid-excel fileName="Pallets.xlsx"></kendo-grid-excel>
     <kendo-grid-pdf fileName="Pallets.pdf" [allPages]="true" paperSize="A4" [repeatHeaders]="true" [landscape]="true">
@@ -52,3 +63,5 @@
       </ng-template>
     </kendo-grid-pdf>
 </kendo-grid>
+
+<div kendoDialogContainer></div>
