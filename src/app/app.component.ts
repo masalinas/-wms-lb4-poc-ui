@@ -43,10 +43,13 @@ export class AppComponent implements OnInit {
   private getPallets() {
     this.loading = true;
 
-    let filter: any = {"include": [{"relation": "palletType"}]};
+    //let filter: any = {include: [{relation: "palletType"}]};
+    let filter: any = {filter: JSON.stringify({include: [{relation: "palletType"}]})};
 
     this.palletControllerService.palletControllerFind(filter).subscribe((pallets: any) => {
        this.pallets = pallets;
+
+       console.log(pallets);
 
        this.loadGrid();
 

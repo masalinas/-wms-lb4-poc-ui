@@ -1,11 +1,9 @@
+// Angular modules
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Kendo-UI modules
@@ -16,9 +14,17 @@ import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
 import { InputsModule } from '@progress/kendo-angular-inputs';
 
+// App environment
+import { environment } from '../environments/environment';
+
 // Loopback services
 import { ApiModule, Configuration, ConfigurationParameters, BASE_PATH } from './shared/services/backend';
 
+// App components
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+
+// WMS services
 import { PalletFormComponent } from './pallet-form/pallet-form.component';
 
 @NgModule({
@@ -27,6 +33,7 @@ import { PalletFormComponent } from './pallet-form/pallet-form.component';
     PalletFormComponent
   ],
   imports: [
+    // Angular modules
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -47,7 +54,13 @@ import { PalletFormComponent } from './pallet-form/pallet-form.component';
   entryComponents: [
     PalletFormComponent,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: Configuration,
+      useFactory: () =>
+          new Configuration({ basePath: environment.basePath})
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

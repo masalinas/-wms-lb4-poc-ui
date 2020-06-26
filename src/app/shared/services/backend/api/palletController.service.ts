@@ -245,8 +245,8 @@ export class PalletControllerService {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (filter !== undefined && filter !== null) {
-          //queryParameters = this.addToHttpParams(queryParameters, <any>filter, 'filter');
-          queryParameters = queryParameters.set('filter', <any>JSON.stringify(filter));
+          queryParameters = this.addToHttpParams(queryParameters, <any>filter, 'filter');
+          //queryParameters = queryParameters.set('filter', <any>JSON.stringify(filter));
         }
 
         let headers = this.defaultHeaders;

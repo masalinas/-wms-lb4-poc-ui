@@ -127,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "wms-lb4-poc-ui"
+  "defaultProject": "wms-lb4-poc-ui",
+  "cli": {
+    "analytics": false
+  }
 }
