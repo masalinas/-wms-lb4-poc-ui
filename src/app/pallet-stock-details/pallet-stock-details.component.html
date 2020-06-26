@@ -1,0 +1,44 @@
+<kendo-grid  [columnMenu]="true"
+             [selectable]="{checkboxOnly: false, mode: 'single'}"
+             [resizable]="true"
+             [loading]="loading"
+             [data]="stockData"
+             [pageSize]="state.take"
+             [skip]="state.skip"
+             [sort]="state.sort"
+             [filter]="state.filter"
+             [sortable]="true"
+             [pageable]="{buttonCount: 10,
+                          info: true,
+                          type: 'input',
+                           pageSizes: true,
+                           previousNext: true
+                          }"
+              [filterable]="true"
+              (dataStateChange)="stockStateChange($event)">
+
+  <!-- Grid Detail Challenge Toolbox -->
+  <ng-template kendoGridToolbarTemplate>
+    <button kendoButton [primary]="true" [look]="'outline'" (click)="getStocksHandler($event)">Refresh Stock</button>
+  </ng-template>
+
+  <!-- Grid Column Menu -->
+  <ng-template kendoGridColumnMenuTemplate let-service="service">
+    <kendo-grid-columnmenu-chooser [service]="service">
+    </kendo-grid-columnmenu-chooser>
+  </ng-template>
+
+  <!-- Grid Detail Color Column -->
+  <kendo-grid-column field="id" title="Id" width="30" hidden="true">
+  </kendo-grid-column>
+  <kendo-grid-column field="product.description" title="Product" width="30">
+  </kendo-grid-column>
+  <kendo-grid-column field="lot" title="Lot" width="30">
+  </kendo-grid-column>
+  <kendo-grid-column field="expeditionDate" title="Expedition date" width="30" filter="date">
+  </kendo-grid-column>
+  <kendo-grid-column field="serialNumber" title="Serial number" width="30">
+  </kendo-grid-column>
+  <kendo-grid-column field="quantity" title="Quantity" width="30" filter="numeric">
+  </kendo-grid-column>
+</kendo-grid>

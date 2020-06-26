@@ -50,14 +50,14 @@ export class AppComponent implements OnInit {
 
   private login() {
     this.userControllerService.userControllerLogin({email: 'masalinas.gancedo@gmail.com', password: 'underground'}).subscribe((result: any) => {
-        localStorage.setItem('token', result.token);
+      localStorage.setItem('token', result.token);
 
-        this.getPallets();
-      },
-      err => {
-        console.log(err);
-        this.loading = false;
-      });
+      this.getPallets();
+    },
+    err => {
+      console.log(err);
+      this.loading = false;
+    });
   }
 
   private getPallets() {
@@ -140,11 +140,11 @@ export class AppComponent implements OnInit {
     const palletEditForm = dialogRef.content.instance;
     palletEditForm.model = pallet;
 
-    dialogRef.result.subscribe((palletEdited: any) => {
-      if (!(palletEdited instanceof DialogCloseResult)) {
+    dialogRef.result.subscribe((palletUpdated: any) => {
+      if (!(palletUpdated instanceof DialogCloseResult)) {
         this.loading = true;
 
-        this.palletControllerService.palletControllerUpdateById(pallet.id, palletEdited).subscribe((pallet: any) => {
+        this.palletControllerService.palletControllerUpdateById(pallet.id, palletUpdated).subscribe((pallet: any) => {
           this.loading = false;
 
           this.getPallets();

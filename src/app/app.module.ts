@@ -29,11 +29,13 @@ import { AppComponent } from './app.component';
 
 // WMS services
 import { PalletFormComponent } from './pallet-form/pallet-form.component';
+import { PalletStockDetailsComponent } from './pallet-stock-details/pallet-stock-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PalletFormComponent
+    PalletFormComponent,
+    PalletStockDetailsComponent,
   ],
   imports: [
     // Angular modules

@@ -14,8 +14,7 @@
                            info: true,
                            type: 'input',
                            pageSizes: true,
-                           previousNext: true
-                          }"              
+                           previousNext: true}"
               [filterable]="true"
               [groupable]="true"
               [group]="state.group"
@@ -42,6 +41,12 @@
       </kendo-grid-column>
       <kendo-grid-column field="palletType.name" width="45" title="Type">
       </kendo-grid-column>
+
+      <!-- Grid Pallet Stocks -->
+      <ng-template kendoGridDetailTemplate let-pallet>
+        <pallet-stock-details [pallet]="pallet">
+        </pallet-stock-details>
+      </ng-template>
 
       <!-- Actions Menu -->
       <kendo-grid-command-column width="40" title="Actions">
