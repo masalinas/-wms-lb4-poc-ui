@@ -16,4 +16,6 @@ export * from './stockPalletController.service';
 import { StockPalletControllerService } from './stockPalletController.service';
 export * from './stockProductController.service';
 import { StockProductControllerService } from './stockProductController.service';
-export const APIS = [PalletControllerService, PalletPalletTypeControllerService, PalletStockControllerService, PalletTypeControllerService, PingControllerService, ProductControllerService, StockControllerService, StockPalletControllerService, StockProductControllerService];
+export * from './userController.service';
+import { UserControllerService } from './userController.service';
+export const APIS = [PalletControllerService, PalletPalletTypeControllerService, PalletStockControllerService, PalletTypeControllerService, PingControllerService, ProductControllerService, StockControllerService, StockPalletControllerService, StockProductControllerService, UserControllerService];

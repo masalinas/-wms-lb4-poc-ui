@@ -12,6 +12,7 @@ import { ProductControllerService } from './api/productController.service';
 import { StockControllerService } from './api/stockController.service';
 import { StockPalletControllerService } from './api/stockPalletController.service';
 import { StockProductControllerService } from './api/stockProductController.service';
+import { UserControllerService } from './api/userController.service';
 
 @NgModule({
   imports:      [],

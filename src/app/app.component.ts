@@ -5,7 +5,7 @@ import { GridComponent, GridDataResult, DataStateChangeEvent } from '@progress/k
 import { DialogService, DialogCloseResult } from '@progress/kendo-angular-dialog';
 
 import { Pallet } from './shared/services/backend/model/models';
-import { PalletControllerService } from './shared/services/backend/api/api';
+import { UserControllerService, PalletControllerService } from './shared/services/backend/api/api';
 
 import { PalletFormComponent } from './pallet-form/pallet-form.component';
 
@@ -37,23 +37,33 @@ export class AppComponent implements OnInit {
   }
 
   constructor(private dialogService: DialogService,
+              private userControllerService: UserControllerService,
               private palletControllerService: PalletControllerService) {
   }
 
   private getPallets() {
     this.loading = true;
 
-    //let filter: any = {include: [{relation: "palletType"}]};
     let filter: any = {filter: JSON.stringify({include: [{relation: "palletType"}]})};
 
     this.palletControllerService.palletControllerFind(filter).subscribe((pallets: any) => {
        this.pallets = pallets;
 
-       console.log(pallets);
-
        this.loadGrid();
 
        this.loading = false;
+      },
+      err => {
+        console.log(err);
+        this.loading = false;
+      });
+  }
+
+  private login() {
+    this.userControllerService.userControllerLogin({email: 'masalinas.gancedo@gmail.com', password: 'underground'}).subscribe((result: any) => {
+        localStorage.setItem('token', result.token);
+
+        this.getPallets();
       },
       err => {
         console.log(err);
@@ -66,7 +76,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getPallets();
+    this.login();
   }
 
   public dataStateChange(state: DataStateChangeEvent): void {

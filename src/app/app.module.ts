@@ -2,9 +2,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // Kendo-UI modules
 import { GridModule, ExcelModule, PDFModule } from '@progress/kendo-angular-grid';
@@ -13,6 +13,9 @@ import { LayoutModule } from '@progress/kendo-angular-layout';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
 import { InputsModule } from '@progress/kendo-angular-inputs';
+
+// Interceptors
+import { AuthInterceptorService } from './auth-interceptor.service';
 
 // App environment
 import { environment } from '../environments/environment';
@@ -59,6 +62,11 @@ import { PalletFormComponent } from './pallet-form/pallet-form.component';
       provide: Configuration,
       useFactory: () =>
           new Configuration({ basePath: environment.basePath})
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
     }
   ],
   bootstrap: [AppComponent]
