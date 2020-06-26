@@ -1,13 +1,13 @@
-import { Component, ViewChild, ViewContainerRef, Inject, OnInit, OnDestroy } from '@angular/core';
+import { Component, ViewChild, ViewContainerRef, Inject, OnInit, OnDestroy, HostListener } from '@angular/core';
 
 import { GroupDescriptor, SortDescriptor, process, State } from '@progress/kendo-data-query';
 import { GridComponent, GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
 import { DialogService, DialogCloseResult } from '@progress/kendo-angular-dialog';
 
+import { PalletFormComponent } from './pallet-form/pallet-form.component';
+
 import { Pallet } from './shared/services/backend/model/models';
 import { UserControllerService, PalletControllerService } from './shared/services/backend/api/api';
-
-import { PalletFormComponent } from './pallet-form/pallet-form.component';
 
 const MENU_PALLET_EDIT: number = 0;
 const MENU_PALLET_REMOVE: number = 1;
@@ -18,17 +18,12 @@ const MENU_PALLET_REMOVE: number = 1;
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  public pageHeight = window.innerHeight - 35;
+
   public menuData: Array<any> = [{menuCode: MENU_PALLET_EDIT, icon: 'pencil', text: 'Edit Pallet'},
                                  {menuCode: MENU_PALLET_REMOVE, icon: 'trash', text: 'Remove Pallet'}];
 
   public loading: boolean = false;
-  public palletData: GridDataResult;
-  public pallets: Pallet[];
-
-  @ViewChild("palletEditForm", { read: ViewContainerRef })
-  public palletEditFormRef: ViewContainerRef;
-
-  // initialize grid state
   public state: State = {
     group: Array<GroupDescriptor>(),
     sort: Array<SortDescriptor>(),
@@ -36,9 +31,33 @@ export class AppComponent implements OnInit {
     take: 10
   }
 
+  public palletData: GridDataResult;
+  public pallets: Pallet[];
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.pageHeight = event.target.innerHeight - 35;
+  }
+
   constructor(private dialogService: DialogService,
               private userControllerService: UserControllerService,
               private palletControllerService: PalletControllerService) {
+  }
+
+  ngOnInit(): void {
+    this.login();
+  }
+
+  private login() {
+    this.userControllerService.userControllerLogin({email: 'masalinas.gancedo@gmail.com', password: 'underground'}).subscribe((result: any) => {
+        localStorage.setItem('token', result.token);
+
+        this.getPallets();
+      },
+      err => {
+        console.log(err);
+        this.loading = false;
+      });
   }
 
   private getPallets() {
@@ -59,27 +78,11 @@ export class AppComponent implements OnInit {
       });
   }
 
-  private login() {
-    this.userControllerService.userControllerLogin({email: 'masalinas.gancedo@gmail.com', password: 'underground'}).subscribe((result: any) => {
-        localStorage.setItem('token', result.token);
-
-        this.getPallets();
-      },
-      err => {
-        console.log(err);
-        this.loading = false;
-      });
-  }
-
   private loadGrid(): void {
     this.palletData = process(this.pallets, this.state);
   }
 
-  ngOnInit(): void {
-    this.login();
-  }
-
-  public dataStateChange(state: DataStateChangeEvent): void {
+  public onDataStateChange(state: DataStateChangeEvent): void {
     this.state = state;
 
     this.loadGrid();
@@ -89,13 +92,21 @@ export class AppComponent implements OnInit {
     this.getPallets();
   }
 
+  public onMenuClick(event: any, pallet: any) {
+      event.dataItem = pallet;
+
+      if (event.menuCode == MENU_PALLET_EDIT)
+        this.editPalletHandler(event);
+      else if (event.menuCode == MENU_PALLET_REMOVE)
+        this.removePalletHandler(event);
+  }
+
   public addPalletHandler(event: any) {
     const pallet = {} as Pallet;
 
     const dialogRef = this.dialogService.open({
-      appendTo: this.palletEditFormRef,
+      title: 'Add Pallet',
       content: PalletFormComponent,
-      title: 'Add Pallet'
     });
 
     const palletEditForm = dialogRef.content.instance;
@@ -118,22 +129,12 @@ export class AppComponent implements OnInit {
     });
   }
 
-  public onMenuClick(event: any, pallet: any) {
-      event.dataItem = pallet;
-
-      if (event.menuCode == MENU_PALLET_EDIT)
-        this.editPalletHandler(event);
-      else if (event.menuCode == MENU_PALLET_REMOVE)
-        this.removePalletHandler(event);
-  }
-
   public editPalletHandler(event: any) {
     const pallet: Pallet = event.dataItem;
 
     const dialogRef = this.dialogService.open({
-      appendTo: this.palletEditFormRef,
-      content: PalletFormComponent,
-      title: 'Edit Pallet'
+      title: 'Edit Pallet',
+      content: PalletFormComponent
     });
 
     const palletEditForm = dialogRef.content.instance;
@@ -160,7 +161,6 @@ export class AppComponent implements OnInit {
     const pallet: Pallet = event.dataItem;
 
     const dialogRef = this.dialogService.open({
-      appendTo: this.palletEditFormRef,
       title: "Remove Pallet",
       content: "Are you sure?",
       actions: [{ text: "Yes" }, { text: "No" }]
