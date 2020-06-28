@@ -12,6 +12,7 @@ import { DialogsModule } from '@progress/kendo-angular-dialog';
 import { LayoutModule } from '@progress/kendo-angular-layout';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
+import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import { InputsModule } from '@progress/kendo-angular-inputs';
 
 // Interceptors
@@ -30,12 +31,14 @@ import { AppComponent } from './app.component';
 // WMS services
 import { PalletFormComponent } from './pallet-form/pallet-form.component';
 import { PalletStockDetailsComponent } from './pallet-stock-details/pallet-stock-details.component';
+import { PalletStockFormComponent } from './pallet-stock-details/pallet-stock-form/pallet-stock-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PalletFormComponent,
     PalletStockDetailsComponent,
+    PalletStockFormComponent,
   ],
   imports: [
     // Angular modules
@@ -48,6 +51,7 @@ import { PalletStockDetailsComponent } from './pallet-stock-details/pallet-stock
     ReactiveFormsModule,
     // Kendo-UI modules
     ButtonsModule,
+    DateInputsModule,
     InputsModule,
     DropDownsModule,
     GridModule,
@@ -58,6 +62,7 @@ import { PalletStockDetailsComponent } from './pallet-stock-details/pallet-stock
   ],
   entryComponents: [
     PalletFormComponent,
+    PalletStockFormComponent,
   ],
   providers: [
     {

@@ -1,0 +1,71 @@
+<form novalidate [formGroup]="stockFormGroup" class="k-form" (keyup.enter)="onSave($event)" (keyup.esc)="onCancel($event)">
+  <div class="form-group-wrapper">
+    <!-- product -->
+    <div id="form-group-product" class="form-group">
+      <label for="product" class="control-label">
+        Product <span class="k-required">*</span>
+      </label>
+
+      <kendo-dropdownlist id="product" required formControlName="productId" style="width: 200px;" valuePrimitive=true
+        [data]="products"
+        [textField]="'name'"
+        [valueField]="'id'">
+      </kendo-dropdownlist>
+
+      <div class="k-tooltip k-tooltip-validation"
+        *ngIf="stockFormGroup.controls.productId.invalid &&
+              (stockFormGroup.controls.productId.dirty || stockFormGroup.controls.productId.touched)">
+        Type is required
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group-wrapper">
+    <!-- lot -->
+    <div id="form-group-lot" class="form-group">
+      <label for="lot" class="control-label">
+        Lot
+      </label>
+
+      <input id="lot" kendoTextBox formControlName="lot" style="width: 350px;"/>
+    </div>
+    <!-- expeditionDate -->
+    <div id="form-group-expeditionDate" class="form-group" style="width: 150px;">
+      <label for="expeditionDate" class="control-label">
+        Expedition date
+      </label>
+
+      <kendo-datepicker id="expeditionDate" formControlName="expeditionDate"></kendo-datepicker>
+    </div>
+    <!-- serialNumber -->
+    <div id="form-group-serialNumber" class="form-group">
+      <label for="serialNumber" class="control-label">
+        Serial number
+      </label>
+
+      <input id="serialNumber" kendoTextBox formControlName="serialNumber" style="width: 350px;"/>
+    </div>
+  </div>
+  <div class="form-group-wrapper">
+    <!-- quantity -->
+    <div id="form-group-budget" class="form-group" style="width: 150px;">
+      <label for="quantity" class="control-label">
+        Quantity<span class="k-required">*</span>
+      </label>
+
+      <kendo-numerictextbox id="quantity" kendoTextBox required formControlName="quantity">
+      </kendo-numerictextbox>
+
+      <div class="k-tooltip k-tooltip-validation"
+        *ngIf="stockFormGroup.controls.quantity.invalid &&
+              (stockFormGroup.controls.quantity.dirty || stockFormGroup.controls.quantity.touched)">
+        Quantity is required
+      </div>
+    </div>
+  </div>
+</form>
+
+<div class="text-right">
+  <button kendoButton [look]="'outline'" (click)="onCancel($event)">Cancel</button>
+  <button kendoButton [primary]="true" (click)="onSave($event)" [disabled]="!stockFormGroup.valid">Save</button>
+</div>

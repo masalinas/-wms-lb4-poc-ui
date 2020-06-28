@@ -6,6 +6,8 @@ import { GroupDescriptor, SortDescriptor, process, State } from '@progress/kendo
 import { GridComponent, GridDataResult, DataStateChangeEvent, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { DialogService, DialogCloseResult } from '@progress/kendo-angular-dialog';
 
+import { PalletStockFormComponent } from './pallet-stock-form/pallet-stock-form.component';
+
 import { Pallet, Stock } from '../shared/services/backend/model/models';
 import { PalletStockControllerService } from '../shared/services/backend/api/api';
 
@@ -69,6 +71,62 @@ export class PalletStockDetailsComponent implements OnInit {
 
   public getStocksHandler(event: any) {
     this.getStocks();
+  }
+
+  public onAddStockPalletClick(event: any) {
+    const stock = {} as Stock;
+
+    const dialogRef = this.dialogService.open({
+      title: 'Add Stock',
+      content: PalletStockFormComponent,
+    });
+
+    const palletStockEditForm = dialogRef.content.instance;
+    palletStockEditForm.model = stock;
+
+    dialogRef.result.subscribe((stock: any) => {
+      if (!(stock instanceof DialogCloseResult)) {
+        /*this.loading = true;
+
+        this.palletControllerService.palletControllerCreate(pallet).subscribe((pallet: Pallet) => {
+          this.loading = false;
+
+          this.getStocks();
+        },
+        err => {
+          console.log(err);
+          this.loading = false;
+        });*/
+      }
+    });
+  }
+
+  public onRemoveStockPalletClick(event: any) {
+    const stock = {} as Stock;
+
+    const dialogRef = this.dialogService.open({
+      title: 'Remove Stock',
+      content: PalletStockFormComponent,
+    });
+
+    const palletStockEditForm = dialogRef.content.instance;
+    palletStockEditForm.model = stock;
+
+    dialogRef.result.subscribe((stock: any) => {
+      if (!(stock instanceof DialogCloseResult)) {
+        /*this.loading = true;
+
+        this.palletControllerService.palletControllerCreate(pallet).subscribe((pallet: Pallet) => {
+          this.loading = false;
+
+          this.getStocks();
+        },
+        err => {
+          console.log(err);
+          this.loading = false;
+        });*/
+      }
+    });
   }
 
   public stockStateChange(state: DataStateChangeEvent): void {

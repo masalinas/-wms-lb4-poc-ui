@@ -20,6 +20,8 @@
   <!-- Grid Detail Challenge Toolbox -->
   <ng-template kendoGridToolbarTemplate>
     <button kendoButton [primary]="true" [look]="'outline'" (click)="getStocksHandler($event)">Refresh Stock</button>
+    <button kendoButton [primary]="true" (click)="onAddStockPalletClick($event)">Add Stock</button>
+    <button kendoButton [primary]="true" style="background:red" (click)="onRemoveStockPalletClick($event)">Remove Stock</button>
   </ng-template>
 
   <!-- Grid Column Menu -->
