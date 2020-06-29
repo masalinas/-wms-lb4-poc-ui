@@ -3,7 +3,7 @@ import { Validators, FormBuilder } from '@angular/forms';
 
 import { DialogRef } from '@progress/kendo-angular-dialog';
 
-import { Pallet, Product } from '../../shared/services/backend/model/models';
+import { Pallet, Stock, Product } from '../../shared/services/backend/model/models';
 import { ProductControllerService } from '../../shared/services/backend/api/api';
 
 @Component({
@@ -12,8 +12,11 @@ import { ProductControllerService } from '../../shared/services/backend/api/api'
   styleUrls: ['./pallet-stock-form.component.css']
 })
 export class PalletStockFormComponent {
+  @Input() public set stock(stock: Stock) {
+    this.stockFormGroup.reset(stock);
+  }
+
   public stockFormGroup = this.fb.group({
-    palletId: ['', Validators.required],
     productId: ['', Validators.required],
     lot: [''],
     expeditionDate: [''],

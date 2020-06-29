@@ -60,14 +60,14 @@ export class PalletStockDetailsComponent implements OnInit {
     this.getStocks();
   }
 
-  /*ngAfterViewInit(): void {
+  ngAfterViewInit(): void {
     // set hierarchy column width
     var elems = document.querySelectorAll('.k-grid .k-group-col, .k-grid .k-hierarchy-col');
 
     [].forEach.call(elems, function(elem) {
         elem.style.width = '5px';
     });
-  }*/
+  }
 
   public getStocksHandler(event: any) {
     this.getStocks();
@@ -82,13 +82,25 @@ export class PalletStockDetailsComponent implements OnInit {
     });
 
     const palletStockEditForm = dialogRef.content.instance;
-    palletStockEditForm.model = stock;
+    palletStockEditForm.stock = stock;
 
     dialogRef.result.subscribe((stock: any) => {
       if (!(stock instanceof DialogCloseResult)) {
-        /*this.loading = true;
+        this.loading = true;
 
-        this.palletControllerService.palletControllerCreate(pallet).subscribe((pallet: Pallet) => {
+        // TODO
+        let stockLine: any = {};
+
+        stockLine.productId = stock.productId;
+        stockLine.quantity = stock.quantity;
+        if (stock.lot)
+          stockLine.lot = stock.lot;
+        if (stock.expeditionDate)
+          stockLine.expeditionDate = stock.expeditionDate;
+        if (stock.serialNumber)
+          stockLine.serialNumber = stock.serialNumber;
+
+        this.palletStockControllerService.palletStockControllerAddStock(this.pallet.id, stockLine).subscribe((stock: Stock) => {
           this.loading = false;
 
           this.getStocks();
@@ -96,7 +108,7 @@ export class PalletStockDetailsComponent implements OnInit {
         err => {
           console.log(err);
           this.loading = false;
-        });*/
+        });
       }
     });
   }
@@ -110,13 +122,25 @@ export class PalletStockDetailsComponent implements OnInit {
     });
 
     const palletStockEditForm = dialogRef.content.instance;
-    palletStockEditForm.model = stock;
+    palletStockEditForm.stock = stock;
 
     dialogRef.result.subscribe((stock: any) => {
       if (!(stock instanceof DialogCloseResult)) {
-        /*this.loading = true;
+        this.loading = true;
 
-        this.palletControllerService.palletControllerCreate(pallet).subscribe((pallet: Pallet) => {
+        // TODO
+        let stockLine: any = {};
+
+        stockLine.productId = stock.productId;
+        stockLine.quantity = stock.quantity;
+        if (stock.lot)
+          stockLine.lot = stock.lot;
+        if (stock.expeditionDate)
+          stockLine.expeditionDate = stock.expeditionDate;
+        if (stock.serialNumber)
+          stockLine.serialNumber = stock.serialNumber;
+
+        this.palletStockControllerService.palletStockControllerRemoveStock(this.pallet.id, stockLine).subscribe((stock: Stock) => {
           this.loading = false;
 
           this.getStocks();
@@ -124,7 +148,7 @@ export class PalletStockDetailsComponent implements OnInit {
         err => {
           console.log(err);
           this.loading = false;
-        });*/
+        });
       }
     });
   }

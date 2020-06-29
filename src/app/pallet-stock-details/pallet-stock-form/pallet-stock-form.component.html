@@ -8,7 +8,7 @@
 
       <kendo-dropdownlist id="product" required formControlName="productId" style="width: 200px;" valuePrimitive=true
         [data]="products"
-        [textField]="'name'"
+        [textField]="'description'"
         [valueField]="'id'">
       </kendo-dropdownlist>
 
@@ -27,7 +27,7 @@
         Lot
       </label>
 
-      <input id="lot" kendoTextBox formControlName="lot" style="width: 350px;"/>
+      <input id="lot" kendoTextBox formControlName="lot" style="width: 200px;"/>
     </div>
     <!-- expeditionDate -->
     <div id="form-group-expeditionDate" class="form-group" style="width: 150px;">
@@ -43,7 +43,7 @@
         Serial number
       </label>
 
-      <input id="serialNumber" kendoTextBox formControlName="serialNumber" style="width: 350px;"/>
+      <input id="serialNumber" kendoTextBox formControlName="serialNumber" style="width: 200px;"/>
     </div>
   </div>
   <div class="form-group-wrapper">

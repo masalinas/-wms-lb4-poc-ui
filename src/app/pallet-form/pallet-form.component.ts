@@ -19,7 +19,7 @@ export class PalletFormComponent {
 
   public palletTypes: PalletType[] = [];
 
-  @Input() public set model(pallet: Pallet) {
+  @Input() public set pallet(pallet: Pallet) {
     this.palletFormGroup.reset(pallet);
   }
 

@@ -110,7 +110,7 @@ export class AppComponent implements OnInit {
     });
 
     const palletEditForm = dialogRef.content.instance;
-    palletEditForm.model = pallet;
+    palletEditForm.pallet = pallet;
 
     dialogRef.result.subscribe((pallet: any) => {
       if (!(pallet instanceof DialogCloseResult)) {
@@ -138,7 +138,7 @@ export class AppComponent implements OnInit {
     });
 
     const palletEditForm = dialogRef.content.instance;
-    palletEditForm.model = pallet;
+    palletEditForm.pallet = pallet;
 
     dialogRef.result.subscribe((palletUpdated: any) => {
       if (!(palletUpdated instanceof DialogCloseResult)) {
