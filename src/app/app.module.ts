@@ -14,6 +14,7 @@ import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import { InputsModule } from '@progress/kendo-angular-inputs';
+import { TooltipModule } from '@progress/kendo-angular-tooltip';
 
 // Interceptors
 import { AuthInterceptorService } from './auth-interceptor.service';
@@ -24,6 +25,9 @@ import { environment } from '../environments/environment';
 // Loopback services
 import { ApiModule, Configuration, ConfigurationParameters, BASE_PATH } from './shared/services/backend';
 
+// directives module
+import { DirectiveModule } from './shared/directives';
+
 // App components
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -32,6 +36,8 @@ import { AppComponent } from './app.component';
 import { PalletFormComponent } from './pallet-form/pallet-form.component';
 import { PalletStockDetailsComponent } from './pallet-stock-details/pallet-stock-details.component';
 import { PalletStockFormComponent } from './pallet-stock-details/pallet-stock-form/pallet-stock-form.component';
+
+
 
 @NgModule({
   declarations: [
@@ -58,7 +64,10 @@ import { PalletStockFormComponent } from './pallet-stock-details/pallet-stock-fo
     ExcelModule,
     PDFModule,
     DialogsModule,
-    LayoutModule
+    LayoutModule,
+    TooltipModule,
+    // Customer modules
+    DirectiveModule,
   ],
   entryComponents: [
     PalletFormComponent,

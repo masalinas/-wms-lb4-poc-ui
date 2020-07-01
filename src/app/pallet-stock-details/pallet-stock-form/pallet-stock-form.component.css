@@ -5,3 +5,9 @@
 .form-group {
   padding: 2px;
 }
+
+.form-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 20px;
+}

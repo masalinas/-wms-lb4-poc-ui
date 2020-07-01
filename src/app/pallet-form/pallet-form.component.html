@@ -6,7 +6,7 @@
         SSCC <span class="k-required">*</span>
       </label>
 
-      <input id="sscc" autofocus required kendoTextBox formControlName="sscc" style="width: 350px;"/>
+      <input id="sscc" autofocus required kendoTextBox formControlName="sscc" style="width: 250px;"/>
 
       <div class="k-tooltip k-tooltip-validation"
        *ngIf="palletFormGroup.controls.sscc.invalid &&
@@ -35,7 +35,7 @@
   </div>
 </form>
 
-<div class="text-right">
+<div class="form-footer">
   <button kendoButton [look]="'outline'" (click)="onCancel($event)">Cancel</button>
   <button kendoButton [primary]="true" (click)="onSave($event)" [disabled]="!palletFormGroup.valid">Save</button>
 </div>

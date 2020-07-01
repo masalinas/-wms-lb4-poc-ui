@@ -45,7 +45,23 @@ export class PalletStockDetailsComponent implements OnInit {
 
     let filter: any = {filter: JSON.stringify({include: [{relation: "product"}]})};
 
-    this.palletStockControllerService.palletStockControllerFind(this.pallet.id, filter).subscribe((stocks: any) => {
+    this.palletStockControllerService.palletStockControllerFind(this.pallet.id, filter).pipe(map((datum) => datum.map((stock: any) => {
+      if (stock.expeditionDate != undefined)
+        stock.expeditionDate = new Date(stock.expeditionDate);
+
+      return stock;
+    }))).subscribe((stocks: any) => {
+      this.stocks = stocks;
+
+      this.loadGrid(stocks);
+      this.loading = false;
+    },
+    err => {
+      console.log(err);
+      this.loading = false;
+    });
+
+    /*this.palletStockControllerService.palletStockControllerFind(this.pallet.id, filter).subscribe((stocks: any) => {
       this.loadGrid(stocks);
 
       this.loading = false;
@@ -53,24 +69,21 @@ export class PalletStockDetailsComponent implements OnInit {
     err => {
       console.log(err);
       this.loading = false;
-    });
+    });*/
   }
 
   public ngOnInit(): void {
     this.getStocks();
   }
 
-  ngAfterViewInit(): void {
-    // set hierarchy column width
-    var elems = document.querySelectorAll('.k-grid .k-group-col, .k-grid .k-hierarchy-col');
-
-    [].forEach.call(elems, function(elem) {
-        elem.style.width = '5px';
-    });
-  }
-
   public getStocksHandler(event: any) {
     this.getStocks();
+  }
+
+  public stockStateChange(state: DataStateChangeEvent): void {
+    this.state = state;
+
+    this.loadGrid(this.stocks);
   }
 
   public onAddStockPalletClick(event: any) {
@@ -151,11 +164,5 @@ export class PalletStockDetailsComponent implements OnInit {
         });
       }
     });
-  }
-
-  public stockStateChange(state: DataStateChangeEvent): void {
-    this.state = state;
-
-    this.loadGrid(this.stocks);
   }
 }

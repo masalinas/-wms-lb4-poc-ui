@@ -1,6 +1,8 @@
-# WmsLb4PocUi
+# Description
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.9.
+A simple Warehouse PoC Angular 9 Frontend using Kendo-UI Components
+
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.9. using Kendo-UI components and swagger open generattor services
 
 ## Development server
 

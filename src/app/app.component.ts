@@ -48,6 +48,15 @@ export class AppComponent implements OnInit {
     this.login();
   }
 
+  ngAfterViewInit(): void {
+    // set hierarchy column width
+    var elems = document.querySelectorAll('.k-grid .k-group-col, .k-grid .k-hierarchy-col');
+
+    [].forEach.call(elems, function(elem) {
+        elem.style.width = '5px';
+    });
+  }
+
   private login() {
     this.userControllerService.userControllerLogin({email: 'masalinas.gancedo@gmail.com', password: 'underground'}).subscribe((result: any) => {
       localStorage.setItem('token', result.token);
@@ -63,7 +72,8 @@ export class AppComponent implements OnInit {
   private getPallets() {
     this.loading = true;
 
-    let filter: any = {filter: JSON.stringify({include: [{relation: "palletType"}]})};
+    //let filter: any = {filter: JSON.stringify({include: [{relation: "palletType"}]})};
+    let filter: any = {filter: JSON.stringify({include: [{relation: "palletType"}, {relation: "stocks"}]})};
 
     this.palletControllerService.palletControllerFind(filter).subscribe((pallets: any) => {
        this.pallets = pallets;

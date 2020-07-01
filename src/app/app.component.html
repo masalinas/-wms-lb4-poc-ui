@@ -38,6 +38,9 @@
       <kendo-grid-column field="id" title="Id" width="50" hidden="true">
       </kendo-grid-column>
       <kendo-grid-column field="sscc" width="45" title="SSCC">
+        <ng-template kendoGridCellTemplate let-pallet>
+          {{pallet.sscc}}<div class="dot" *ngIf="pallet.stocks && pallet.stocks.length > 0" kendoTooltip title="{{pallet.stocks.length}} stock lines"></div>
+        </ng-template>
       </kendo-grid-column>
       <kendo-grid-column field="palletType.name" width="45" title="Type">
       </kendo-grid-column>

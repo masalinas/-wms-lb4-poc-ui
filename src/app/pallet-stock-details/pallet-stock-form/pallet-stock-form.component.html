@@ -35,7 +35,7 @@
         Expedition date
       </label>
 
-      <kendo-datepicker id="expeditionDate" formControlName="expeditionDate"></kendo-datepicker>
+      <kendo-datepicker id="expeditionDate" [format]="'dd/MM/yyyy'" formControlName="expeditionDate"></kendo-datepicker>
     </div>
     <!-- serialNumber -->
     <div id="form-group-serialNumber" class="form-group">
@@ -65,7 +65,7 @@
   </div>
 </form>
 
-<div class="text-right">
+<div class="form-footer">
   <button kendoButton [look]="'outline'" (click)="onCancel($event)">Cancel</button>
   <button kendoButton [primary]="true" (click)="onSave($event)" [disabled]="!stockFormGroup.valid">Save</button>
 </div>
