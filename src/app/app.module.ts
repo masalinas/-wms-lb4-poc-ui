@@ -37,8 +37,6 @@ import { PalletFormComponent } from './pallet-form/pallet-form.component';
 import { PalletStockDetailsComponent } from './pallet-stock-details/pallet-stock-details.component';
 import { PalletStockFormComponent } from './pallet-stock-details/pallet-stock-form/pallet-stock-form.component';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,

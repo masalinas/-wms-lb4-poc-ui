@@ -1,6 +1,7 @@
 {
   "name": "wms-lb4-poc-ui",
   "version": "0.0.0",
+  "description": "WMS PoC UI",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
